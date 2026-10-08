@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>认识平均数 · Knowledge Explorer 学习页面模板</title>
+  <style>
+    :root{color-scheme:light;--bg:#f3f7fb;--card:#fff;--ink:#16324c;--muted:#50667d;--blue:#186eae;--line:#dce5ee;--sub:#eaf3fb;--good:#17694b;--bad:#a83631;--shadow:0 12px 32px rgba(22,50,76,.06)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Microsoft YaHei","PingFang SC",sans-serif;font-size:18px;line-height:1.7}
+    button{font:inherit;cursor:pointer}
+    button:focus-visible,a:focus-visible{outline:3px solid #ed9a37;outline-offset:3px}
+    a{color:var(--blue)}
+    .wrap{max-width:1080px;margin:auto;padding:0 24px}
+    .topbar{border-bottom:1px solid var(--line);background:rgba(255,255,255,.92)}
+    .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:15px;padding-bottom:15px}
+    .brand{font-size:16px;font-weight:750;letter-spacing:.02em}
+    .small{font-size:15px;color:var(--muted)}
+    .hero{padding:58px 0 35px}
+    .eyebrow{font-size:15px;font-weight:750;letter-spacing:.04em;color:var(--blue)}
+    h1{font-size:clamp(32px,4.5vw,50px);line-height:1.17;margin:12px 0 16px;letter-spacing:-.025em}
+    .lead{max-width:760px;font-size:21px;color:var(--muted);margin:0}
+    .goal{margin-top:22px;background:var(--sub);padding:18px 22px;border-radius:14px;border-left:4px solid var(--blue);max-width:860px}
+    .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:var(--shadow);min-width:0}
+    section{margin-bottom:24px}
+    .section-title{font-size:24px;line-height:1.3;margin:4px 0 16px}
+    .explain{margin:0 0 17px;color:var(--muted)}
+    .stepbar,.tabbar,.answers{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 18px}
+    .pill{padding:10px 17px;border:1px solid #cbd9e6;background:#fff;border-radius:999px;color:var(--ink);font-size:16px;font-weight:650}
+    .pill[aria-pressed="true"],.pill[aria-selected="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+    .soft{background:var(--sub);border-radius:14px;padding:22px;min-height:144px}
+    .step-title{font-size:21px;font-weight:750;margin:0 0 8px}
+    .step-description{margin:0}
+    .number{font-size:44px;line-height:1.3;letter-spacing:-.03em;color:var(--blue);font-weight:800}
+    .result-label{color:var(--muted);font-size:15px}
+    .math{font-variant-numeric:tabular-nums;font-size:22px;font-weight:700;margin:6px 0 12px;overflow-wrap:anywhere}
+    .answer{min-height:48px;padding:10px 16px;border:1px solid #cbd9e6;background:white;border-radius:10px;flex:1 1 135px;text-align:left;font-weight:650}
+    .answer[aria-pressed="true"]{border-color:var(--blue);background:var(--sub)}
+    .feedback{border-radius:12px;padding:14px 16px;background:var(--sub);margin-top:14px;min-height:62px}
+    .feedback.good{background:#e7f5ef;color:var(--good)}
+    .feedback.bad{background:#fff0ee;color:var(--bad)}
+    .source{font-size:16px;color:var(--muted);padding-left:17px;border-left:3px solid var(--line)}
+    footer{font-size:14px;color:var(--muted);padding:12px 0 35px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:720px){.wrap{padding:0 16px}.hero{padding:35px 0 24px}.grid{grid-template-columns:1fr}.card{padding:20px}.lead{font-size:19px}.section-title{font-size:22px}.topbar .small{display:none}.number{font-size:38px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <!--
+  Knowledge Explorer 单文件模板：包含“平均数”演示数据与真实的步骤/样本计算/测验交互。
+  Agent 在为用户交付新主题前，必须替换标题、正文、步骤、示例、公式、测验、来源与适用条件；
+  对没有可靠计算规则的主题，删除样本计算模块，而不是保留无关的模拟。
+  这里的纯前端界面不会将用户操作状态自动回传到 Agent 聊天。
+  -->
+  <header class="topbar"><div class="wrap"><div class="brand">KNOWLEDGE EXPLORER</div><div class="small">学懂一个知识点 · 分步探索</div></div></header>
+  <main class="wrap">
+    <div class="hero">
+      <div class="eyebrow">交互式学习 · 示例主题</div>
+      <h1 id="lessonTitle">认识平均数</h1>
+      <p class="lead" id="lessonIntro">不只是记住公式：观察样本变化后，平均数为什么也会变化。</p>
+      <div class="goal"><strong>学完你可以：</strong> <span id="lessonGoal">解释平均数的计算方法，并发现加入新数据时平均数如何变化。</span></div>
+    </div>
+    <div class="grid">
+      <section class="card" aria-labelledby="stepsHeading">
+        <h2 class="section-title" id="stepsHeading">01 · 分步理解</h2>
+        <p class="explain">按顺序查看每一步的含义。</p>
+        <div class="stepbar" id="stepButtons" role="group" aria-label="学习步骤"></div>
+        <div class="soft" id="stepPanel" aria-live="polite"></div>
+      </section>
+      <section class="card" aria-labelledby="tryHeading">
+        <h2 class="section-title" id="tryHeading">02 · 动手探索</h2>
+        <p class="explain">切换两组真实数字，观察平均数如何由公式计算得出。</p>
+        <div class="tabbar" role="group" aria-label="选择样本" id="sampleButtons"></div>
+        <div class="result-label" id="sampleName">示例</div>
+        <div class="math" id="sampleFormula"></div>
+        <div class="number" id="sampleResult"></div>
+        <p class="small" id="sampleExplanation"></p>
+      </section>
+      <section class="card" aria-labelledby="quizHeading">
+        <h2 class="section-title" id="quizHeading">03 · 检查理解</h2>
+        <p id="quizQuestion"></p>
+        <div class="answers" id="quizAnswers" role="group" aria-label="选择答案"></div>
+        <div class="feedback" id="quizFeedback" aria-live="polite">选择一个答案，查看原因。</div>
+      </section>
+      <section class="card" aria-labelledby="limitsHeading">
+        <h2 class="section-title" id="limitsHeading">04 · 来源与边界</h2>
+        <p class="source" id="lessonSources">示范页面使用的是基础算术示例，并非引用某篇论文或用户文档。</p>
+        <p class="small" id="lessonLimit">本页仅说明简单算术平均数。不讨论加权平均数、缺失值处理或异常值的统计影响。</p>
+      </section>
+    </div>
+  </main>
+  <footer class="wrap">Knowledge Explorer · 示例学习页面</footer>
+  <script>
+  "use strict";
+  // 示例数据：实际交付时由 Agent 针对学习主题替换；所有对话/资料数据作为文本显示。
+  const LESSON = {
+    title: "认识平均数",
+    intro: "不只是记住公式：观察样本变化后，平均数为什么也会变化。",
+    goal: "解释平均数的计算方法，并发现加入新数据时平均数如何变化。",
+    steps: [
+      {title:"确定样本",description:"先明确哪些数参与计算。这里使用三个数字：2、4、6。"},
+      {title:"求总和",description:"将参与计算的数字相加：2 + 4 + 6 = 12。"},
+      {title:"除以数量",description:"一共有 3 个数，平均数 = 12 ÷ 3 = 4。"}
+    ],
+    samples: [
+      {name:"样本 A", values:[2,4,6], explanation:"三个数的平均数是 4。"},
+      {name:"样本 B", values:[2,4,6,8], explanation:"加入较大的数字 8 后，平均数上升到 5。"}
+    ],
+    quiz:{question:"将数字 8 加入 [2, 4, 6] 后，新的平均数是多少？",options:["4","5","8"],correct:1,explanation:"新的总和为 20，共 4 个数字，因此 20 ÷ 4 = 5。"},
+    source:"示范页面使用的是基础算术示例，并非引用某篇论文或用户文档。",
+    limitations:"本页仅说明简单算术平均数。不讨论加权平均数、缺失值处理或异常值的统计影响。"
+  };
+  const byId=id=>document.getElementById(id);
+  const createButton=(label,cls,handler)=>{const b=document.createElement("button");b.type="button";b.className=cls;b.textContent=label;b.addEventListener("click",handler);return b;};
+  const setText=(id,value)=>{byId(id).textContent=String(value);};
+  setText("lessonTitle",LESSON.title);document.title=LESSON.title+" · Knowledge Explorer";
+  setText("lessonIntro",LESSON.intro);setText("lessonGoal",LESSON.goal);
+  setText("lessonSources",LESSON.source);setText("lessonLimit",LESSON.limitations);
+  let selectedStep=0;
+  function renderSteps(){
+    const buttons=byId("stepButtons");buttons.replaceChildren();
+    LESSON.steps.forEach((s,i)=>{const b=createButton("第"+(i+1)+"步","pill",()=>{selectedStep=i;renderSteps();});b.setAttribute("aria-pressed",String(selectedStep===i));buttons.appendChild(b);});
+    const panel=byId("stepPanel");panel.replaceChildren();
+    const h=document.createElement("h3");h.className="step-title";h.textContent=LESSON.steps[selectedStep].title;
+    const p=document.createElement("p");p.className="step-description";p.textContent=LESSON.steps[selectedStep].description;
+    panel.append(h,p);
+  }
+  let selectedSample=0;
+  function renderSamples(){
+    const buttons=byId("sampleButtons");buttons.replaceChildren();
+    LESSON.samples.forEach((s,i)=>{const b=createButton(s.name,"pill",()=>{selectedSample=i;renderSamples();});b.setAttribute("aria-pressed",String(selectedSample===i));buttons.appendChild(b);});
+    const s=LESSON.samples[selectedSample];const sum=s.values.reduce((a,b)=>a+b,0);const mean=sum/s.values.length;
+    setText("sampleName",s.name+" · "+s.values.length+" 个数字");
+    setText("sampleFormula","("+s.values.join(" + ")+") ÷ "+s.values.length);
+    setText("sampleResult",mean.toLocaleString("zh-CN",{maximumFractionDigits:4}));
+    setText("sampleExplanation",s.explanation);
+  }
+  function renderQuiz(){
+    setText("quizQuestion",LESSON.quiz.question);
+    const buttons=byId("quizAnswers");buttons.replaceChildren();
+    LESSON.quiz.options.forEach((answer,i)=>{const b=createButton(answer,"answer",()=>{
+      buttons.querySelectorAll("button").forEach((x,j)=>x.setAttribute("aria-pressed",String(i===j)));
+      const good=i===LESSON.quiz.correct;const f=byId("quizFeedback");f.className="feedback "+(good?"good":"bad");
+      f.textContent=(good?"回答正确。":"再想一想。")+" "+LESSON.quiz.explanation;
+    });b.setAttribute("aria-pressed","false");buttons.appendChild(b);});
+  }
+  renderSteps();renderSamples();renderQuiz();
+  </script>
+</body>
+</html>
